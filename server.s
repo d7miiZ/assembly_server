@@ -7,15 +7,15 @@ get_path:
     mov rax, 0
     add rdi, 4 # Skip "GET "
    
-    path_loop:
-     mov cl, byte ptr [rdi + rax]
-     cmp cl, 0x20 # Is space
-     je path_exit
-     mov byte ptr [rsi + rax], cl
-     inc rax
-     jmp path_loop
+path_loop:
+    mov cl, byte ptr [rdi + rax]
+    cmp cl, 0x20 # Is space
+    je path_exit
+    mov byte ptr [rsi + rax], cl
+    inc rax
+    jmp path_loop
      
-    path_exit:
+path_exit:
      mov byte ptr [rsi + rax], 0
      ret
 
@@ -38,6 +38,7 @@ _start:
     mov rax, 50 # listen
     syscall
 
+accept_loop:
     mov rdi, r9
     mov rsi, 0
     mov rdx, 0
@@ -88,6 +89,8 @@ _start:
     mov rdi, r10
     mov rax, 3 # close
     syscall
+
+    jmp accept_loop
 
     mov rdi, 0
     mov rax, 60 # exit
