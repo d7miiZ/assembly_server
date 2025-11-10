@@ -124,7 +124,7 @@ path_buffer:
 sockaddr_in:
     .word 2             # sin_family = AF_INET
     .word 0x5000        # sin_port = htons(80) → 0x0050 → stored as 0x5000  
-    .long 0             # sin_addr = 127.0.0.1
+    .long 0             # sin_addr = 0.0.0.0
     .quad 0             # sin_zero[8] = 0
 static_response:
     .ascii "HTTP/1.0 200 OK\r\n\r\n"
