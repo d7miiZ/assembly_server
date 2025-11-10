@@ -46,6 +46,23 @@ accept_loop:
     syscall
     mov r10, rax
 
+    mov rax, 57 # fork
+    syscall
+
+    cmp rax, 0
+    jz child_loop
+
+    mov rdi, r10
+    mov rax, 3 # close client socket in parent
+    syscall
+
+    jmp accept_loop
+
+child_loop:
+    mov rdi, r9
+    mov rax, 3 # close server socket in child
+    syscall
+    
     mov rdi, r10
     lea rsi, [rip + req_buffer]
     mov rdx, 1024
@@ -89,8 +106,6 @@ accept_loop:
     mov rdi, r10
     mov rax, 3 # close
     syscall
-
-    jmp accept_loop
 
     mov rdi, 0
     mov rax, 60 # exit
