@@ -32,7 +32,7 @@ You can use curl in a separate terminal to test the server.
 Create a file for the server to find:
 
 ```bash
-echo "Hello from assembly server!" > index.html
+echo "Hello from assembly server!" > /index.html
 ```
 
 Run the server (in another terminal):
@@ -58,7 +58,7 @@ curl -X POST http://localhost/uploaded.txt -d "This is data from a POST request.
 Check the server's directory for the newly created file:
 
 ```bash
-cat uploaded.txt
+cat /uploaded.txt
 ```
 
 You should see the output: This is data from a POST request.
